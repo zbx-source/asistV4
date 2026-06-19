@@ -1,0 +1,38 @@
+import { Repository, DataSource } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
+import { ClientsService } from '../clients/clients.service';
+import { CoreRulesService } from '../core-rules/core-rules.service';
+import { QuotaService } from '../quota/quota.service';
+import { ConversationHistoryService } from './conversation-history.service';
+import { Conversation } from './conversation.entity';
+import { TreatmentModule } from './treatment-module.entity';
+export declare class WhatsAppService {
+    private readonly cfg;
+    private readonly clientsSvc;
+    private readonly coreRulesSvc;
+    private readonly quotaSvc;
+    private readonly history;
+    private readonly convRepo;
+    private readonly moduleRepo;
+    private readonly dataSource;
+    private readonly logger;
+    private readonly verifyToken;
+    private readonly metaToken;
+    private readonly metaEnabled;
+    private readonly openAiKey;
+    private readonly openAiModel;
+    private readonly openAiUrl;
+    private readonly openAiTimeout;
+    private readonly openAiMaxTokens;
+    private readonly historyEnabled;
+    constructor(cfg: ConfigService, clientsSvc: ClientsService, coreRulesSvc: CoreRulesService, quotaSvc: QuotaService, history: ConversationHistoryService, convRepo: Repository<Conversation>, moduleRepo: Repository<TreatmentModule>, dataSource: DataSource);
+    verify(mode: string, token: string, challenge: string): string | number;
+    handleIncoming(payload: any): Promise<void>;
+    sendFromPortal(to: string, body: string, phoneNumberId: string): Promise<boolean>;
+    private processMessage;
+    private getOrCreateConversation;
+    private generateAiReply;
+    private detectHumanRequest;
+    private sendText;
+    private getMonthlyLimit;
+}
